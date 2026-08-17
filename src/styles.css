@@ -1,0 +1,146 @@
+/* Google Fonts loaded via HTML <link> in __root.tsx */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neon: var(--neon);
+  --color-neon-soft: var(--neon-soft);
+  --color-glass: var(--glass);
+  --font-mono: "Space Mono", monospace;
+  --font-pixel: "Doto", "DotGothic16", "Silkscreen", cursive;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Pure white base — PlayerZero exact */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+
+  --card: #f5f5f5;
+  --card-foreground: #0a0a0a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+
+  /* Solid black primary */
+  --primary: #0a0a0a;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f5f5f5;
+  --secondary-foreground: #0a0a0a;
+
+  --muted: #f0f0f0;
+  --muted-foreground: #737373;
+
+  --accent: #e5e5e5;
+  --accent-foreground: #0a0a0a;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #0a0a0a;
+
+  --neon: #ea580c;
+  --neon-soft: rgba(234, 88, 12, 0.1);
+  --glass: rgba(0, 0, 0, 0.02);
+
+  --gradient-orb: none;
+  --gradient-hero: none;
+  --gradient-neon: none;
+  --shadow-neon: none;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+html { color-scheme: light; }
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    min-height: 100vh;
+  }
+  h1, h2, h3 { letter-spacing: 0; }
+}
+
+@layer components {
+  /* No glass, no blur — plain solid panels */
+  .glass {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+  }
+  .glass-strong {
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+  }
+  .neon-border {
+    border: 1px solid #e5e5e5;
+  }
+  .neon-glow { box-shadow: none; }
+  .text-gradient {
+    color: #0a0a0a;
+  }
+  /* PlayerZero button: solid black, small radius, white text */
+  .btn-hero {
+    background: #0a0a0a;
+    color: #ffffff;
+    border: none;
+    box-shadow: none;
+    transition: background .15s;
+  }
+  .btn-hero:hover { background: #262626; transform: none; filter: none; }
+}
+
+/* Animations */
+@keyframes orb-float { 0%,100% { transform: translateY(0) scale(1);} 50% { transform: translateY(-8px) scale(1.01);} }
+@keyframes orb-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.92; } }
+@keyframes orb-spin { from { transform: rotate(0);} to { transform: rotate(360deg);} }
+@keyframes wave { 0%,100% { transform: scaleY(0.3);} 50% { transform: scaleY(1);} }
+@keyframes fade-up { from {opacity:0; transform:translateY(12px);} to {opacity:1; transform:translateY(0);} }
+
+.animate-orb-float { animation: orb-float 6s ease-in-out infinite; }
+.animate-orb-pulse { animation: orb-pulse 4s ease-in-out infinite; }
+.animate-orb-spin { animation: orb-spin 40s linear infinite; }
+.animate-fade-up { animation: fade-up .5s ease-out both; }
+
+/* Subtle dot grid background — PlayerZero style */
+.grid-bg {
+  background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
+  background-size: 24px 24px;
+}

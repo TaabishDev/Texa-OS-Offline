@@ -1,0 +1,51 @@
+APPENDIX 
+
+Sample Source Code 
+
+1 AI Orchestrator Dispatch — backend/agents/ai_orchestrator.py 
+
+class AIOrchestrator: 
+    def _determine_primary_agent(self, command: str) -> str: 
+        cmd = command.lower() 
+        if any(w in cmd for w in ["open", "browser", "search"]): 
+            return "browser" 
+        if any(w in cmd for w in ["doc", "excel", "pdf", "generate"]): 
+            return "doc" 
+        if any(w in cmd for w in ["system", "volume", "status"]): 
+            return "system" 
+        return "chat" 
+
+
+2 Browser Agent Playwright — backend/agents/browser_agent.py 
+
+class BrowserAgent: 
+    async def navigate(self, url: str, headless: bool = False) -> dict: 
+        if not url.startswith("http"): 
+            url = "https://" + url 
+        await self._init_playwright(headless) 
+        response = await self.page.goto(url, wait_until="networkidle") 
+        return {"status": "success", "title": await self.page.title(), "url": self.page.url} 
+
+
+3 Smart Document Engine — backend/agents/doc_agent.py 
+
+class DocAgent: 
+    def generate(self, doc_type: str, title: str, content: list) -> str: 
+        doc_type = doc_type.lower() 
+        if doc_type in ["word", "docx"]: 
+            return self._generate_docx(title, content) 
+        if doc_type == "pdf": 
+            return self._generate_pdf(title, content) 
+        return self._generate_xlsx(title, content) 
+
+
+4 Daemon REST API — backend/main.py 
+
+@app.get("/api/health") 
+async def health_check(): 
+    return {"status": "healthy", "assistant": "TEXA Daemon", "platform": sys.platform} 
+
+@app.post("/api/voice/trigger") 
+async def voice_trigger(req: VoiceTriggerRequest): 
+    reply = await ai_orchestrator.execute_voice_command(req.command) 
+    return {"status": "success", "reply": reply} 
